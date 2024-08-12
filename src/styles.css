@@ -1,0 +1,31 @@
+/* styles.css */
+
+.min-vh-100 {
+    min-height: 100vh;
+  }
+  
+  .flex-grow-1 {
+    flex: 1;
+  }
+  
+  footer {
+    background-color: #343a40; /* Dark color for footer */
+  }
+  
+  .product-card {
+    margin-bottom: 1.5rem; /* Adds margin below each card */
+  }
+  
+  .card-img-top {
+    height: 180px; /* Ensure all images have a consistent height */
+    object-fit: cover; /* Ensure images cover the area without stretching */
+  }
+
+  .form-control:invalid {
+    border-color: #dc3545; /* Bootstrap danger color for invalid fields */
+  }
+  
+  .form-control:valid {
+    border-color: #28a745; /* Bootstrap success color for valid fields */
+  }
+  
