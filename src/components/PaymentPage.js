@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Container, Button, Row, Col, Form, Alert } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { clearCart } from "../store/cartSlice"; // Import clearCart action
 
 const PaymentPage = () => {
+  const dispatch = useDispatch(); // Get dispatch function
+  const navigate = useNavigate(); // Get navigate function
+
   // State to manage form input values
   const [formData, setFormData] = useState({
     name: "",
@@ -53,14 +59,14 @@ const PaymentPage = () => {
     e.preventDefault(); // Prevent default form submission behavior
     if (validateForm()) {
       // Validate form data
+      dispatch(clearCart()); // Clear the cart on successful payment
       setIsSubmitted(true); // Set submission state to true if valid
+      setTimeout(() => navigate("/cart"), 1000); // Navigate to cart page after 1 second
     }
   };
 
   return (
     <Container className="my-5">
-      {" "}
-      {/* Container for layout and spacing */}
       <h2 className="mb-4">Payment Page</h2>
       {/* Show success alert if form is submitted and there are no errors */}
       {isSubmitted && !Object.keys(errors).length && (
@@ -68,8 +74,6 @@ const PaymentPage = () => {
       )}
       <Row>
         <Col md={8}>
-          {" "}
-          {/* Column with medium width for the form */}
           <Form onSubmit={handleSubmit}>
             {/* Form group for cardholder's name */}
             <Form.Group controlId="name">
@@ -80,6 +84,7 @@ const PaymentPage = () => {
                 value={formData.name}
                 onChange={handleChange}
                 isInvalid={!!errors.name} // Show error state if validation fails
+                placeholder="John Doe" // Placeholder text for the name field
               />
               <Form.Control.Feedback type="invalid">
                 {errors.name} {/* Display error message */}
@@ -95,6 +100,7 @@ const PaymentPage = () => {
                 value={formData.cardNumber}
                 onChange={handleChange}
                 isInvalid={!!errors.cardNumber} // Show error state if validation fails
+                placeholder="1234 5678 9012 3456" // Placeholder text for the card number field
               />
               <Form.Control.Feedback type="invalid">
                 {errors.cardNumber} {/* Display error message */}
@@ -110,6 +116,7 @@ const PaymentPage = () => {
                 value={formData.expiryDate}
                 onChange={handleChange}
                 isInvalid={!!errors.expiryDate} // Show error state if validation fails
+                placeholder="MM/YY" // Placeholder text for the expiry date field
               />
               <Form.Control.Feedback type="invalid">
                 {errors.expiryDate} {/* Display error message */}
@@ -125,6 +132,7 @@ const PaymentPage = () => {
                 value={formData.cvv}
                 onChange={handleChange}
                 isInvalid={!!errors.cvv} // Show error state if validation fails
+                placeholder="123" // Placeholder text for the CVV field
               />
               <Form.Control.Feedback type="invalid">
                 {errors.cvv} {/* Display error message */}
