@@ -26,6 +26,7 @@ function CartPage() {
   const dispatch = useDispatch(); // For dispatching actions
   const [showHelp, setShowHelp] = useState(false); // State to manage help modal visibility
   const [showAlert, setShowAlert] = useState(false); // State to manage alert visibility
+  const [showError, setShowError] = useState(false); // State to manage error visibility
   const navigate = useNavigate(); // For navigation
 
   // Handler for removing an item from the cart
@@ -55,6 +56,7 @@ function CartPage() {
   // Handler for changing the shipping method
   const handleShippingMethodChange = (e) => {
     dispatch(setShippingMethod(e.target.value));
+    setShowError(false); // Hide error if user selects a shipping method
   };
 
   // Function to calculate the total cost including shipping
@@ -85,7 +87,11 @@ function CartPage() {
 
   // Handler for proceeding to the payment page
   const handlePayment = () => {
-    navigate("/payment");
+    if (!shippingMethod) {
+      setShowError(true); // Show error if no shipping method is selected
+    } else {
+      navigate("/payment");
+    }
   };
 
   return (
@@ -101,6 +107,18 @@ function CartPage() {
         >
           <Alert.Heading className="fs-6">Action Successful</Alert.Heading>
           <p className="fs-6">Your cart has been updated successfully.</p>
+        </Alert>
+      )}
+
+      {/* Display error alert if showError is true */}
+      {showError && (
+        <Alert
+          variant="danger"
+          onClose={() => setShowError(false)}
+          dismissible
+        >
+          <Alert.Heading className="fs-6">Payment Error</Alert.Heading>
+          <p className="fs-6">Please select a shipping method before proceeding.</p>
         </Alert>
       )}
 
