@@ -48,6 +48,7 @@ Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.co
 
 4. **Open the project in your browser:**
    Navigate to http://localhost:3000 to view the Online Store App.
+   You can also access the project on the link provided in the link.txt file.
 
 ## Usage
 - Home Page: Access the main page of the store and view featured products.
