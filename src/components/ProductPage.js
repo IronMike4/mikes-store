@@ -11,12 +11,11 @@ import {
 } from "react-bootstrap";
 import { addItem } from "../store/cartSlice";
 import { selectUser, setUser } from "../store/userSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ProductPage() {
   const dispatch = useDispatch(); // Hook to dispatch actions
   const user = useSelector(selectUser); // Hook to get the current user from the Redux store
-  const navigate = useNavigate(); // Hook to navigate to different routes programmatically
   const [showToast, setShowToast] = useState(false); // State to control toast notification visibility
   const [showLoginModal, setShowLoginModal] = useState(false); // State to control login modal visibility
   const [pendingAction, setPendingAction] = useState(null); // State to store a pending action if user is not logged in
@@ -110,23 +109,6 @@ function ProductPage() {
   };
 
   // Handle the login action
-  const handleLogin = (username) => {
-    dispatch(setUser(username)); // Set the user in the Redux store
-    setShowLoginModal(false); // Hide the login modal
-    if (pendingAction) {
-      // If there was a pending action
-      // Add the pending item to the cart
-      const cartItem = {
-        id: pendingAction.id,
-        name: pendingAction.name,
-        quantity: 1,
-        price: pendingAction.price,
-      };
-      dispatch(addItem(cartItem)); // Dispatch the addItem action
-      setShowToast(true); // Show success toast notification
-      setPendingAction(null); // Clear the pending action
-    }
-  };
 
   return (
     <Container className="my-5">
